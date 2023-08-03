@@ -1,0 +1,43 @@
+import requests
+while True:
+    # take input from the user
+    choice = input("Enter choice(1/2/3/0) for temp, wind speed, pressure or exit : ")
+
+    # check if choice is one of the four options
+    if choice in ('1', '2', '3'):
+        try:
+            date = input("Enter date dd/mm/yy: ")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+
+        if choice == '1':
+          url = "https://samples.openweathermap.org/data/2.5/forecast/hourly?q=London,us&appid=b6907d289e10d714a6e88b30761fae22"
+          response = requests.get(url)
+          if response.status_code == 200:
+             data = response.json()
+             temp = data['main']['temp']
+             print(f'Temperature: {temp}')
+          else:
+             print('Error fetching weather data')
+
+        elif choice == '2':
+          if response.status_code == 200:
+             data = response.json()
+             windspeed =  data['wind']['speed']
+             print(f'windspeed: {windspeed}')
+          else:
+             print('Error fetching weather data')
+
+        elif choice == '3':
+          if response.status_code == 200:
+             data = response.json()
+             pressure = data['main']['pressure']
+             print(f'pressure: {pressure}')
+          else:
+             print('Error fetching weather data')
+
+        elif choice == '0':
+            break
+    else:
+        print("Invalid Input")
